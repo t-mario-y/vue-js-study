@@ -8,13 +8,14 @@ const vm = new Vue({
   data:{
     fetchDataList: [] //データの格納場所。宣言時は空
   },
-  created () {
+  created : function () {
     fetch(fetchURI)
       .then(response => response.json())
       .then((data) => {
         this.fetchDataList = data;
       })
   },
+  
   template: `
   <div>
     <li v-for="item in fetchDataList">
