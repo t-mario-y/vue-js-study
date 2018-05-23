@@ -1,10 +1,9 @@
-//REST APIで Fetchしてみる
-//https://qiita.com/matsuoshi/items/7c19e7dcf404b7d921d6
-//const fetchURI = 'https://holidays-jp.github.io/api/v1/date.json';
-//↑データがカタマリでしか取れない(ループできない)ので変えました。
+//WEB APIで Fetchする
+//IE11に対応させるなら、axiosが必要
+//const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
+//AirTableというサービスをREST APIとして動かしている。API KEYはGitHubには上げないこと。
+const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=[API_KEY]";
 
-//試しにIE11で動かす
-const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
 const vm = new Vue({
   el: "#myApp",
   data:{
@@ -14,7 +13,7 @@ const vm = new Vue({
     fetch(fetchURI)
       .then(response => response.json())
       .then((data) => {
-        this.fetchDataList = data;
+        this.fetchDataList = data.records;
       })
   },
 });

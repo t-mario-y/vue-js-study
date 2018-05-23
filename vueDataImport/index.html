@@ -11,7 +11,9 @@
   <h1>Vue.js Data Import Study.</h1>
   <div id="myApp">
     <ul>
-      <li v-for="item in fetchDataList">{{item.id}}:{{item.title}}</li>
+      <li v-for="item in fetchDataList">
+        <span>{{item.fields.ISBN}}</span>:<span>"{{item.fields.albumTitle}}"</span> by <span style="font-weight:bold;">{{item.fields.musician}}</span>
+      </li>
     </ul>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
