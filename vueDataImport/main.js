@@ -8,8 +8,7 @@ const vm = new Vue({
   data:{
     fetchDataList: [] //データの格納場所。宣言時は空
   },
-  mounted() {
-    console.log("now Vue Instance is mounted.");
+  created () {
     fetch(fetchURI)
       .then(response => response.json())
       .then((data) => {
