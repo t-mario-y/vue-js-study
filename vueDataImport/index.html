@@ -10,6 +10,11 @@
 <body>
   <h1>Vue.js Data Import Study.</h1>
   <div id="myApp">
+    <div>
+      <li v-for="item in fetchDataList">
+        <h4>{{item.id}}:{{item.title}}</h4>
+      </li>
+    </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
   <script src="./main.js"></script>  

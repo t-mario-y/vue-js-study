@@ -2,6 +2,8 @@
 //https://qiita.com/matsuoshi/items/7c19e7dcf404b7d921d6
 //const fetchURI = 'https://holidays-jp.github.io/api/v1/date.json';
 //↑データがカタマリでしか取れない(ループできない)ので変えました。
+
+//試しにIE11で動かす
 const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
 const vm = new Vue({
   el: "#myApp",
@@ -15,12 +17,4 @@ const vm = new Vue({
         this.fetchDataList = data;
       })
   },
-  
-  template: `
-  <div>
-    <li v-for="item in fetchDataList">
-      <h4>{{item.id}}:{{item.title}}</h4>
-    </li>
-  </div>
-  `,
 });
