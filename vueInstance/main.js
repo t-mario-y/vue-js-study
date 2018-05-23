@@ -27,6 +27,7 @@ const vm = new Vue({
   `,
 });
 
-// consoleで
-// vm.$mount("#myApp")
-// を実行すると、mounted()が走りマウントされる。
+// consoleで vm.$mount("#myApp") を実行すると、mounted()が走りマウントされる。
+// トリガとしてcreated/mounted/updated など
+// インスタンスメソッドとして vm.$mount()など
+// https://jp.vuejs.org/v2/api/ で自習する
