@@ -1,7 +1,7 @@
 //WEB APIでアクセスする。
 //const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
 //AirTableというサービスをREST APIとして動かしている。API KEYはGitHubには上げないこと。
-const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=key5p6IkMIZ5aE4pc";
+const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=[API_KEY]";
 
 const vm = new Vue({
   el: "#myApp",
@@ -24,7 +24,7 @@ const vm = new Vue({
       //POST https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData 401 (Unauthorized)
       let params = new URLSearchParams();
       params.append('headers',
-        {'Authorization': 'Bearer key5p6IkMIZ5aE4pc'}
+        {'Authorization': 'Bearer [API_KEY]'}
       );
       params.append('data',
         {

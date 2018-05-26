@@ -16,18 +16,4 @@ const vm = new Vue({
         this.fetchDataList = data.records;
       })
   },
-  methods : {
-    updateMusician( id , musicianName ){ //'recVEAmKNl5X1pgwr',"Bobby Mcferrin_updated!"
-      //TODO:これはNode.jsの記法なのでアプリ側では通りません。(requireでエラーになる。)
-      //Fetch APIか、axios で GET/PUT/POST/PATCH/DELETE の記法を調査します。
-      let Airtable = require('airtable');
-      let base = new Airtable({apiKey: '[API_KEY]'}).base('appLuomWcZr2mn0fL');
-      base('cdData').update(id , {
-        "musician": musicianName
-      }, function(err, record) {
-        if (err) { console.error(err); return; }
-        console.log(record.get('ISBN'));
-      });
-    }
-  },
 });
