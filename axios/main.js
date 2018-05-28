@@ -1,31 +1,31 @@
 //WEB APIでアクセスする。
 //const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
 //AirTableというサービスをREST APIとして動かしている。API KEYはGitHubには上げないこと。
-const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=[API_KEY]";
+const API_URI = "http://localhost:3000/samples";
 
 const vm = new Vue({
   el: "#myApp",
   data:{
     recordList: [] //データの格納場所。宣言時は空
   },
-  created : function () {
-    axios.get(fetchURI)
+  created : function () { //TODO fetch()と書いて通らない
+      axios.get(API_URI + '/airTable/fetch')
       .then((response) => {
-        console.log(response);
         this.recordList = response.data.records;
       })
     },
   methods : {
+    fetch(){
+      axios.get(API_URI + '/airTable/fetch')
+      .then((response) => {
+        this.recordList = response.data.records;
+      })
+    },
     update(){
       //Fetch APIか、axios で GET/PUT/POST/PATCH/DELETE の記法を調査します。
     },
     create(){
-      //TODO: Authorizeが通らない。
-      //POST https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData 401 (Unauthorized)
       let params = new URLSearchParams();
-      params.append('headers',
-        {'Authorization': 'Bearer [API_KEY]'}
-      );
       params.append('data',
         {
           "fields": {
@@ -35,9 +35,11 @@ const vm = new Vue({
           }
         });
 
-      axios.post('https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData', params)
+      axios.post(API_URI + '/airTable/create', params)
         .then((response) =>{
           console.log(resnponse);
+          //再表示
+
        })
     }
   },
