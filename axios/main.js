@@ -6,13 +6,13 @@ const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=[
 const vm = new Vue({
   el: "#myApp",
   data:{
-    fetchDataList: [] //データの格納場所。宣言時は空
+    recordList: [] //データの格納場所。宣言時は空
   },
   created : function () {
     axios.get(fetchURI)
       .then((response) => {
         console.log(response);
-        this.fetchDataList = response.data.records;
+        this.recordList = response.data.records;
       })
     },
   methods : {
