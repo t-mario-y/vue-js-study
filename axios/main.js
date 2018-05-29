@@ -28,7 +28,7 @@ const vm = new Vue({
         'ISBN'      : this.updateRecord.ISBN,
         'musician'  : this.updateRecord.musician,
         'albumTitle': this.updateRecord.albumTitle,
-      }).then((response) =>{
+      }).then((response) =>{ //TODO =>はIE11で通りません。
         console.log(`Create succeeded in Vue.js : ${response.data}`);
         //再表示
         //本来であれば、予めitemオブジェクトを生成しておいてそれをajaxに投げ、
