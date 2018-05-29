@@ -1,4 +1,5 @@
 //Expressでローカルに建てたAPIサーバ越しにアクセスする。
+//データのリフレッシュはfetch()で行っているが、たぶんwatch()などでいい感じに実装できそうだ。
 const API_URI = "http://localhost:3000/samples";
 
 const vm = new Vue({
@@ -6,12 +7,9 @@ const vm = new Vue({
   data:{
     recordList: [] //データの格納場所。宣言時は空
   },
-  created : function () { //TODO fetch()を再利用したい
-      axios.get(API_URI + '/airTable/fetch')
-      .then((response) => {
-        this.recordList = response.data;
-      })
-    },
+  created : function () {
+    this.fetch();
+  },
   methods : {
     fetch(){
       axios.get(API_URI + '/airTable/fetch')
@@ -23,21 +21,15 @@ const vm = new Vue({
       //Fetch APIか、axios で GET/PUT/POST/PATCH/DELETE の記法を調査します。
     },
     create(){
-      let params = new URLSearchParams();
-      params.append('data',
-        {
-          "fields": {
-            "ISBN": "B000024FDQ(NEW)",
-            "musician": "Bobby Mcferrin(NEW)",
-            "albumTitle": "Cirlcle Song(NEW)"
-          }
-        });
-
-      axios.post(API_URI + '/airTable/create', params)
+      axios.post(API_URI + '/airTable/create', {
+        "ISBN"      : "B000024FDQ(client)",
+        "musician"  : "Bobby Mcferrin(client)",
+        "albumTitle": "Cirlcle Song(client)"
+      })
         .then((response) =>{
-          console.log(resnponse);
+          console.log(`create succeeded in Vue.js : ${response.data}`);
           //再表示
-
+          this.fetch();
        })
     }
   },
