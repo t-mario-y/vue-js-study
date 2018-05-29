@@ -9,14 +9,14 @@ const vm = new Vue({
   created : function () { //TODO fetch()を再利用したい
       axios.get(API_URI + '/airTable/fetch')
       .then((response) => {
-        this.recordList = response.data.records;
+        this.recordList = response.data;
       })
     },
   methods : {
     fetch(){
       axios.get(API_URI + '/airTable/fetch')
       .then((response) => {
-        this.recordList = response.data.records;
+        this.recordList = response.data;
       })
     },
     update(){

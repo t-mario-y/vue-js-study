@@ -12,7 +12,7 @@
   <div id="myApp">
     <ul>
       <li v-for="item in recordList">
-        <span>{{item.fields.ISBN}}</span>:<span>"{{item.fields.albumTitle}}"</span> by <span style="font-weight:bold;">{{item.fields.musician}}</span>
+        <span>{{item.ISBN}}</span>:<span>"{{item.albumTitle}}"</span> by <span style="font-weight:bold;">{{item.musician}}</span>
       </li>
     </ul>
     <button v-on:click="create()">create</button>
