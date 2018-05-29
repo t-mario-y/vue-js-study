@@ -1,6 +1,4 @@
-//WEB APIでアクセスする。
-//const fetchURI = 'https://api.github.com/repos/vueJs/vue/issues?state=open';
-//AirTableというサービスをREST APIとして動かしている。API KEYはGitHubには上げないこと。
+//Expressでローカルに建てたAPIサーバ越しにアクセスする。
 const API_URI = "http://localhost:3000/samples";
 
 const vm = new Vue({
@@ -8,7 +6,7 @@ const vm = new Vue({
   data:{
     recordList: [] //データの格納場所。宣言時は空
   },
-  created : function () { //TODO fetch()と書いて通らない
+  created : function () { //TODO fetch()を再利用したい
       axios.get(API_URI + '/airTable/fetch')
       .then((response) => {
         this.recordList = response.data.records;
