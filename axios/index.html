@@ -15,7 +15,20 @@
         <span>{{item.ISBN}}</span>:<span>"{{item.albumTitle}}"</span> by <span style="font-weight:bold;">{{item.musician}}</span>
       </li>
     </ul>
+    <div class="row">
+      <div class="column column-33">
+        <span>ISBN</span><input v-model="updateRecord.ISBN"/>
+      </div>
+      <div class="column column-33">
+        <span>Album Title</span><input v-model="updateRecord.albumTitle"/>
+      </div>
+      <div class="column column-33">
+        <span>Musician</span><input v-model="updateRecord.musician"/>
+      </div>
+    </div>
+    <button v-on:click="fetch()">fetch</button>
     <button v-on:click="create()">create</button>
+    <button v-on:click="update()">update</button>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
