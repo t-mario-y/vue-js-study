@@ -20,12 +20,24 @@
         <span>{{item}}</span>
       </li>
     </ul>
-    <h4>処理をバインドする</h4>
-    <button v-on:click="buttonClick">click bind</button>
-    <h4>要素の属性にバインドする</h4>
+    <h4>属性にバインドする(circleのr)</h4>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <circle cx="100" cy="75" v-bind:r="radius" fill="lightpink"/>
+    </svg>
+    <input type="range" min="0" max="100" v-model="radius"/>
+    <h4>クラス/スタイルのバインド</h4>
+    <div>"クラスとスタイルのバインディング - Vue.js" https://jp.vuejs.org/v2/guide/class-and-style.html</div>
+    <div>"クラスとスタイルのデータバインディング - 基礎から学ぶVue.js"</div>
+    <div v-bind:class="{'is-active':classState.isActive}">v-bind:class</div>
+    <button v-on:click="switchState">click bind</button>
     <h4>v-if</h4>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
-  <script src="./main.js"></script>  
+  <script src="./main.js"></script>
+  <style type="text/css">
+    div.is-active {
+      color: red;
+    }
+  </style>
 </body>
 </html>
