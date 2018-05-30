@@ -6,13 +6,17 @@ const vm = new Vue({
     <div>
       <div v-for="friend in vueFriends">
         <h4>{{friend|fullName}}, {{friend.age}} years old.</h4>
-        <div>
-          <span>First Name:</span><input v-model="friend.first"/>
-          <span>Last Name:</span><input v-model="friend.last"/>
+        <div class="row">
+          <div class="column column-50">
+            <span>First Name:</span><input v-model="friend.first"/>
+          </div>
+          <div class="column column-50">
+            <span>Last Name:</span><input v-model="friend.last"/>
+          </div>
         </div>
         <span>age:</span>
-        <button v-on:click="incrementAge(friend)">+</button>
-        <button v-on:click="decrementAge(friend)">-</button>
+        <button v-on:click="incrementAge(friend)">PLUS</button>
+        <button v-on:click="decrementAge(friend)">MINUS</button>
       </div>
     </div>
   `,
