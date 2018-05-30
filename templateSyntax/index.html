@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.css">
+  <title>Vue.js Study</title>
+</head>
+<body>
+  <h1>Vue.js template syntax.</h1>
+  <div id="myApp">
+    <h4>シンプルな双方向バインド</h4>
+    <div>メッセージ表示:{{message.value}}</div>
+    <div>長さ:{{message.value.length}}</div>
+    <input v-model="message.value"/>
+    <h4>リスト表示</h4>
+    <ul>
+      <li v-for="item in list">
+        <span>{{item}}</span>
+      </li>
+    </ul>
+    <h4>処理をバインドする</h4>
+    <button v-on:click="buttonClick">click bind</button>
+    <h4>要素の属性にバインドする</h4>
+    <h4>v-if</h4>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="./main.js"></script>  
+</body>
+</html>

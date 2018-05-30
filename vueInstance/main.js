@@ -1,4 +1,8 @@
 //5-1.スクリプトからmountする
+// consoleで vm.$mount("#myApp") を実行すると、mounted()が走りマウントされる。
+// トリガとしてcreated/mounted/updated など
+// インスタンスメソッドとして vm.$mount()など
+// https://jp.vuejs.org/v2/api/ で自習する
 const vm = new Vue({
 //  el: "#myApp",
   data:{
@@ -26,8 +30,3 @@ const vm = new Vue({
   </div>
   `,
 });
-
-// consoleで vm.$mount("#myApp") を実行すると、mounted()が走りマウントされる。
-// トリガとしてcreated/mounted/updated など
-// インスタンスメソッドとして vm.$mount()など
-// https://jp.vuejs.org/v2/api/ で自習する
