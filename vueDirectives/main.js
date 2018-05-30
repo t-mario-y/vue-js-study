@@ -1,6 +1,6 @@
 const vm = new Vue({
   el: "#myApp",
-  //templateは"単一の要素"しか返せないので、divで囲みがち。
+  //templateは"単一の要素"しか返せないので、divなりで囲む。
   //"Component template should contain exactly one root element.
   template : `
     <div>

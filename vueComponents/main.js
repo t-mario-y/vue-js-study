@@ -1,3 +1,6 @@
+/**
+ * Vue.component()を使ったコンポーネント化
+ */
 Vue.component('friend-comp',{
   props: ['friend'],
   filters: {
