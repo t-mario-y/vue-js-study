@@ -11,23 +11,23 @@ const vm = new Vue({
     currentPage: 'list',
     workObjList: [
       {
-        date     : '2018-01-01',
-        start    : '9:00',
-        end      : '18:00',
-        workHour : 7.75,
+        date      : '2018-01-01',
+        startTime : '9:00',
+        endTime   : '18:00',
+        workHour  : 7.75,
       },
       {
-        date     : '2018-03-01',
-        start    : '9:30',
-        end      : '20:00',
-        workHour : 7.75,
+        date      : '2018-03-01',
+        startTime : '9:30',
+        endTime   : '20:00',
+        workHour  : 7.75,
       }
     ], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
-      date     : new Date(),
-      start    : '9:30',
-      end      : '18:00',
-      workHour : 7.75,
+      date      : new Date(),
+      startTime : '9:30',
+      endTime   : '18:00',
+      workHour  : 7.75,
     }
   },
   created : function () {
@@ -59,11 +59,11 @@ const vm = new Vue({
     },
     insert(){
       axios.post(API_URI + '/insert', {
-        'date'    : target.date,
-        'start'   : target.start,
-        'end'     : target.end,
-        'workHour': ttarget.workHour,
-      }).then((response) =>{
+        'date'      : target.date, 
+        'startTime' : target.startTime,
+        'endTime'   : target.endTime,
+        'workHour'  : target.workHour,
+      }).then((response) =>{ 
         console.log(`Insert succeeded in Vue.js : ${response.data}`);
         //再表示
         //本来であれば、予めitemオブジェクトを生成しておいてそれをajaxに投げ、
@@ -74,11 +74,11 @@ const vm = new Vue({
     update(){
       var target = this.updateRecord;
       axios.patch(API_URI + '/update', {
-        'date'    : target.date,
-        'start'   : target.start,
-        'end'     : target.end,
-        'workHour': ttarget.workHour,
-      }).then((response) =>{
+        'date'      : target.date, 
+        'startTime' : target.startTime,
+        'endTime'   : target.endTime,
+        'workHour'  : target.workHour,
+      }).then((response) =>{ 
         console.log(`Update succeeded in Vue.js : ${response.data}`);
         //再表示
         this.select();
