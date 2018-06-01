@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/milligram/milligram/master/dist/milligram.css">
+  <title>勤怠管理</title>
+</head>
+<body>
+  <div id="myApp">
+    <div v-show="decidePage('list')">
+      <ul>
+        <li v-for="item in workObjList">
+          <div>日付：{{item.date}}</div>
+          <span>出勤時間：{{item.start}}</span><span>退勤時間：{{item.end}}</span>
+        </li>
+      </ul>
+      <button v-on:click="select">表示更新</button>
+      <button v-on:click="transPage('edit')">登録画面へ</button>
+    </div>
+    <div v-show="decidePage('edit')">
+      <div class="row">
+        <div class="column column-33">
+          <span>日付</span><vuejs-datepicker v-model="updateRecord.date" :format="customFormatter" name="hogehoge"></vuejs-datepicker>
+        </div>
+        <div class="column column-33">
+        <span>出勤時間</span><input v-model="updateRecord.start"/>
+        </div>
+        <div class="column column-33">
+        <span>退勤時間</span><input v-model="updateRecord.end"/>
+        </div>
+      </div>
+      <div>勤務時間:{{updateRecord.workHour}}</div>
+      <button v-on:click="insert">新規登録</button>
+      <button v-on:click="transPage('list')">一覧画面へ</button>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuejs-datepicker"></script>
+  <script src="./main.js"></script>  
+</body>
+</html>
