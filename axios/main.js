@@ -21,6 +21,9 @@ const vm = new Vue({
       axios.get(API_URI + '/airTable/fetch')
       .then((response) => {
         this.recordList = response.data;
+        console.log(`Fetch succeeded in Vue.js.`);
+      }).catch((error) => {
+        console.log(error);
       })
     },
     create(){
