@@ -9,29 +9,27 @@ const vm = new Vue({
   },
   data:{
     currentPage: 'list',
-    workObjList: [
-      {
-        date      : '2018-01-01',
-        startTime : '9:00',
-        endTime   : '18:00',
-        workHour  : 7.75,
-      },
-      {
-        date      : '2018-03-01',
-        startTime : '9:30',
-        endTime   : '20:00',
-        workHour  : 7.75,
-      }
-    ], //データの格納場所。宣言時は空
+    workObjList: [], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
       date      : new Date(),
       startTime : '9:30',
       endTime   : '18:00',
-      workHour  : 7.75,
+      workHour  : 27900, //秒単位
     }
   },
+  watch : {
+    'updateRecord.startTime' : function(){
+      //TODO
+      this.updateRecord.workHour = 44000;
+    },
+    'updateRecord.endTime' : function(){
+      //TODO
+      this.updateRecord.workHour = 55000;
+    },
+
+  },
   created : function () {
-    //this.select();
+    this.select();
   },
   methods : {
     //ページ遷移
@@ -46,7 +44,7 @@ const vm = new Vue({
     customFormatter(date) {
       //TODO カスタムで定義して戻す
       //VueJsの汎用ライブラリがないか探す
-      return '2000/11/22';
+      return date.getFullYear() + "/" + (date.getMonth()+1) + "/" +date.getDate();
     },
     select(){
       axios.get(API_URI + '/select')
@@ -66,8 +64,6 @@ const vm = new Vue({
       }).then((response) =>{ 
         console.log(`Insert succeeded in Vue.js : ${response.data}`);
         //再表示
-        //本来であれば、予めitemオブジェクトを生成しておいてそれをajaxに投げ、
-        //APIでの更新が成功したのであればdataにitemを追加する、という方法がよさそうだ。
         this.select();
       })
     },

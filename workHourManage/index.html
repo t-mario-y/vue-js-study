@@ -10,12 +10,24 @@
 <body>
   <div id="myApp">
     <div v-show="decidePage('list')">
-      <ul>
-        <li v-for="item in workObjList">
-          <div>日付：{{item.date}}</div>
-          <span>出勤時間：{{item.start}}</span><span>退勤時間：{{item.end}}</span>
-        </li>
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>出勤</th>
+            <th>退勤</th>
+            <th>時間</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in workObjList">
+            <td>{{item.date}}</td>
+            <td>{{item.startTime}}</td>
+            <td>{{item.endTime}}</td>
+            <td>{{item.workHour/3600}} h</td>
+          </tr>
+        </tbody>
+      </table>
       <button v-on:click="select">表示更新</button>
       <button v-on:click="transPage('edit')">登録画面へ</button>
     </div>
@@ -25,13 +37,21 @@
           <span>日付</span><vuejs-datepicker v-model="updateRecord.date" :format="customFormatter" name="hogehoge"></vuejs-datepicker>
         </div>
         <div class="column column-33">
-        <span>出勤時間</span><input v-model="updateRecord.start"/>
+        <span>出勤時間</span><select v-model="updateRecord.startTime">
+          <option value="9:00">9:00</option><option value="9:15">9:15</option><option value="9:30">9:30</option><option value="9:45">9:45</option>
+          <option value="10:00">10:00</option><option value="10:15">10:15</option><option value="10:30">10:30</option><option value="10:45">10:45</option>
+        </select>
         </div>
         <div class="column column-33">
-        <span>退勤時間</span><input v-model="updateRecord.end"/>
+        <span>退勤時間</span><select v-model="updateRecord.endTime">
+          <option value="17:00">17:00</option><option value="17:15">17:15</option><option value="17:30">17:30</option><option value="17:45">17:45</option>
+          <option value="18:00">18:00</option><option value="18:15">18:15</option><option value="18:30">18:30</option><option value="18:45">18:45</option>
+          <option value="19:00">19:00</option><option value="19:15">19:15</option><option value="19:30">19:30</option><option value="19:45">19:45</option>
+          <option value="20:00">20:00</option><option value="20:15">20:15</option><option value="20:30">20:30</option><option value="20:45">20:45</option>
+        </select>
         </div>
       </div>
-      <div>勤務時間:{{updateRecord.workHour}}</div>
+      <div>勤務時間:{{updateRecord.workHour/3600}} h</div>
       <button v-on:click="insert">新規登録</button>
       <button v-on:click="transPage('list')">一覧画面へ</button>
     </div>
