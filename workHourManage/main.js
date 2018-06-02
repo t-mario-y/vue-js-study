@@ -13,20 +13,23 @@ const vm = new Vue({
     updateRecord: { //作成/更新レコード
       date      : new Date(),
       startTime : '9:30',
-      endTime   : '18:00',
+      endTime   : '18:15',
       workHour  : 27900, //秒単位
     }
   },
   watch : {
     'updateRecord.startTime' : function(){
-      //TODO
-      this.updateRecord.workHour = 44000;
+      //TODO 共通処理化
+      let start = moment(this.updateRecord.startTime, 'HH:mm');
+      let end   = moment(this.updateRecord.endTime, 'HH:mm');
+      this.updateRecord.workHour = end.diff(start,'seconds') - 3600;
     },
     'updateRecord.endTime' : function(){
-      //TODO
-      this.updateRecord.workHour = 55000;
+      //TODO 共通処理化
+      let start = moment(this.updateRecord.startTime, 'HH:mm');
+      let end   = moment(this.updateRecord.endTime, 'HH:mm');
+      this.updateRecord.workHour = end.diff(start,'seconds') - 3600;
     },
-
   },
   created : function () {
     this.select();
@@ -56,6 +59,7 @@ const vm = new Vue({
       })
     },
     insert(){
+      var target = this.updateRecord;
       axios.post(API_URI + '/insert', {
         'date'      : target.date, 
         'startTime' : target.startTime,
