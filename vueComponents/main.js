@@ -1,5 +1,6 @@
 /**
  * Vue.component()を使ったコンポーネント化
+ * かなり難しいが大事な考え方なので勉強すること
  */
 Vue.component('friend-comp',{
   props: ['friend'],
