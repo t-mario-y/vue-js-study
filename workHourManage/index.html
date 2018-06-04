@@ -22,9 +22,9 @@
         <tbody>
           <tr v-for="item in workObjList">
             <td>{{item.date}}</td>
-            <td>{{item.startTime}}</td>
-            <td>{{item.endTime}}</td>
-            <td>{{item.workHour/3600}} h</td>
+            <td>{{item.startTime|showTime}}</td>
+            <td>{{item.endTime|showTime}}</td>
+            <td>{{item.workingTime|showDuration}}</td>
           </tr>
         </tbody>
       </table>
@@ -51,14 +51,14 @@
         </select>
         </div>
       </div>
-      <div>勤務時間:{{updateRecord.workHour/3600}} h</div>
+      <div>勤務時間:{{updateRecord.workingTime|showDuration}}</div>
       <button v-on:click="insert">新規登録</button>
       <button v-on:click="transPage('list')">一覧画面へ</button>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/vuejs-datepicker"></script>
   <script src="./main.js"></script>  

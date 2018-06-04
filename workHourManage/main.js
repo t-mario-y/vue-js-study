@@ -11,28 +11,39 @@ const vm = new Vue({
     currentPage: 'list',
     workObjList: [], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
-      date      : new Date(),
-      startTime : '9:30',
-      endTime   : '18:15',
-      workHour  : 27900, //秒単位
+      date      : '',
+      startTime : '',
+      endTime   : '',
+      workingTime  : '',
     }
   },
   watch : {
     'updateRecord.startTime' : function(){
-      //TODO 共通処理化
-      let start = moment(this.updateRecord.startTime, 'HH:mm');
-      let end   = moment(this.updateRecord.endTime, 'HH:mm');
-      this.updateRecord.workHour = end.diff(start,'seconds') - 3600;
+      this.calcWorkTime();
     },
     'updateRecord.endTime' : function(){
-      //TODO 共通処理化
-      let start = moment(this.updateRecord.startTime, 'HH:mm');
-      let end   = moment(this.updateRecord.endTime, 'HH:mm');
-      this.updateRecord.workHour = end.diff(start,'seconds') - 3600;
+      this.calcWorkTime();
+    },
+  },
+  filters : {
+    //秒数をHH:mmに変換(手動)
+    showDuration : function(seconds){
+      let hour = Math.floor(seconds / 3600);
+      let minutes = Math.floor(seconds / 60) % 60;
+      //hourを0埋め
+      if(hour < 10){
+        hour = `0${hour}`;
+      }
+      return `${hour}h${minutes}min`;
+    },
+    //dateオブジェクトのHH:mmを返す
+    showTime : function(date){
+      return dateFns.format(date, 'HH:mm');
     },
   },
   created : function () {
     this.select();
+//    this.initUpdateRecord();
   },
   methods : {
     //ページ遷移
@@ -45,10 +56,28 @@ const vm = new Vue({
     },
     //日付表示
     customFormatter(date) {
-      //TODO カスタムで定義して戻す
-      //VueJsの汎用ライブラリがないか探す
-      return date.getFullYear() + "/" + (date.getMonth()+1) + "/" +date.getDate();
+      //date-fnsでフォーマットする
+      return dateFns.format(date, 'YYYY/MM/DD');
     },
+    //更新レコードの初期化
+    initUpdateRecord(){
+      let _today     = dateFns.startOfToday();
+      let _startTime = dateFns.setMinutes(dateFns.setHours(_today, 9), 30);
+      let _endTime   = dateFns.setMinutes(dateFns.setHours(_today, 15), 15);
+
+      this.updateRecord.date = _today;
+      this.updateRecord.startTime = _today;
+      this.updateRecord.endTime = _endTime;  
+      this.calcWorkTime();
+    },
+    //開始時間/終了時間から勤務時間を算出してセットする
+    calcWorkTime(){
+      //TODO Date型どうしで比較可能にする。そのためには、時間入力(timepicker)で内部的に日付を持たせる必要がある。
+      let _start = dateFns.format(this.updateRecord.startTime, 'HH:mm');
+      let _end   = dateFns.format(this.updateRecord.endTime, 'HH:mm');
+      this.updateRecord.workingTime = dateFns.differenceInSeconds(_end, _start )- 3600;
+    },
+    //Web APIへのアクセス
     select(){
       axios.get(API_URI + '/select')
       .then((response) => {
@@ -61,10 +90,10 @@ const vm = new Vue({
     insert(){
       var target = this.updateRecord;
       axios.post(API_URI + '/insert', {
-        'date'      : target.date, 
-        'startTime' : target.startTime,
-        'endTime'   : target.endTime,
-        'workHour'  : target.workHour,
+        'date'        : target.date, 
+        'startTime'   : target.startTime,
+        'endTime'     : target.endTime,
+        'workingTime' : target.workingTime,
       }).then((response) =>{ 
         console.log(`Insert succeeded in Vue.js : ${response.data}`);
         //再表示
@@ -74,10 +103,10 @@ const vm = new Vue({
     update(){
       var target = this.updateRecord;
       axios.patch(API_URI + '/update', {
-        'date'      : target.date, 
-        'startTime' : target.startTime,
-        'endTime'   : target.endTime,
-        'workHour'  : target.workHour,
+        'date'        : target.date, 
+        'startTime'   : target.startTime,
+        'endTime'     : target.endTime,
+        'workingTime' : target.workingTime,
       }).then((response) =>{ 
         console.log(`Update succeeded in Vue.js : ${response.data}`);
         //再表示
