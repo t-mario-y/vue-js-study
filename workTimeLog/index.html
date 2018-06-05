@@ -20,16 +20,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in workObjList">
+          <tr v-for="item in workObjList" v-on:click="startUpdate(item)" v-bind:key="item.id">
             <td>{{item.date}}</td>
-            <td>{{item.startTime|showTime}}</td>
-            <td>{{item.endTime|showTime}}</td>
+            <td>{{item.startTime}}</td>
+            <td>{{item.endTime}}</td>
             <td>{{item.workingTime|showDuration}}</td>
           </tr>
         </tbody>
       </table>
       <button v-on:click="select">表示更新</button>
-      <button v-on:click="transPage('edit')">登録画面へ</button>
+      <button v-on:click="startInsert">新規登録</button>
     </div>
     <div v-show="decidePage('edit')">
       <div class="row">
@@ -38,7 +38,7 @@
         </div>
         <div class="column column-33">
         <span>出勤時間</span><select v-model="updateRecord.startTime">
-          <option value="9:00">9:00</option><option value="9:15">9:15</option><option value="9:30">9:30</option><option value="9:45">9:45</option>
+          <option value="09:00">09:00</option><option value="09:15">09:15</option><option value="09:30">09:30</option><option value="09:45">09:45</option>
           <option value="10:00">10:00</option><option value="10:15">10:15</option><option value="10:30">10:30</option><option value="10:45">10:45</option>
         </select>
       </div>
@@ -48,16 +48,27 @@
           <option value="18:00">18:00</option><option value="18:15">18:15</option><option value="18:30">18:30</option><option value="18:45">18:45</option>
           <option value="19:00">19:00</option><option value="19:15">19:15</option><option value="19:30">19:30</option><option value="19:45">19:45</option>
           <option value="20:00">20:00</option><option value="20:15">20:15</option><option value="20:30">20:30</option><option value="20:45">20:45</option>
+          <option value="21:00">21:00</option><option value="21:15">21:15</option><option value="21:30">21:30</option><option value="21:45">21:45</option>
+          <option value="22:00">22:00</option><option value="22:15">22:15</option><option value="22:30">22:30</option><option value="22:45">22:45</option>
         </select>
         </div>
       </div>
       <div>勤務時間:{{updateRecord.workingTime|showDuration}}</div>
-      <button v-on:click="insert">新規登録</button>
-      <button v-on:click="transPage('list')">一覧画面へ</button>
+<span v-if="updateMode === 'insert'">
+  <button v-on:click="executeInsert">登録</button>
+</span>
+<span v-else-if="updateMode === 'update'">
+  <button v-on:click="executeUpdate">更新</button>
+</span>
+<span v-else>
+  <button v-on:click="executeDelete">削除</button>
+</span>
+  <button v-on:click="transPage('list')">一覧画面へ</button>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="http://cdn.date-fns.org/v1.0.0/date_fns.min.js"></script>
   <script src="https://unpkg.com/vue"></script>
   <script src="https://unpkg.com/vuejs-datepicker"></script>

@@ -11,11 +11,13 @@ const vm = new Vue({
     currentPage: 'list',
     workObjList: [], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
-      date      : '',
-      startTime : '', //TODO mm:ssにするか、yyyy-mm-dd mm:ssにするか。画面上は単なるtimepickerにしたほうがシンプル。更新のときに(サーバで)なんとかすべきだろうか?
-      endTime   : '',
-      workingTime  : '',
+      id        : null,
+      date      : null,
+      startTime : null,
+      endTime   : null,
+      workingTime  : null,
     },
+    updateMode : 'insert',
   },
   watch : {
     'updateRecord.startTime' : function(){
@@ -36,16 +38,25 @@ const vm = new Vue({
       }
       return `${hour}h${minutes}min`;
     },
-    //dateオブジェクトのHH:mmを返す
-    showTime : function(date){
-      return dateFns.format(date, 'HH:mm');
-    },
   },
   created : function () {
     this.select();
-//    this.initUpdateRecord();
   },
   methods : {
+    startInsert(){
+      this.initUpdateRecord();
+      this.updateMode = 'insert';
+      this.transPage('edit');
+    },
+    startUpdate(targetObj){
+      this.updateRecord.id = targetObj.id;
+      this.updateRecord.date = targetObj.date;
+      this.updateRecord.startTime = targetObj.startTime;
+      this.updateRecord.endTime = targetObj.endTime;
+      this.calcWorkTime()
+      this.updateMode = 'update';
+      this.transPage('edit');
+    },
     //ページ遷移
     transPage(pageKind){
       this.currentPage = pageKind;
@@ -61,21 +72,17 @@ const vm = new Vue({
     },
     //更新レコードの初期化
     initUpdateRecord(){
-      let _today     = dateFns.startOfToday();
-      let _startTime = dateFns.setMinutes(dateFns.setHours(_today, 9), 30);
-      let _endTime   = dateFns.setMinutes(dateFns.setHours(_today, 15), 15);
-
-      this.updateRecord.date = _today;
-      this.updateRecord.startTime = _today;
-      this.updateRecord.endTime = _endTime;  
+      this.updateRecord.date = dateFns.startOfToday();
+      this.updateRecord.startTime = '09:30';
+      this.updateRecord.endTime = '18:15';  
       this.calcWorkTime();
     },
     //開始時間/終了時間から勤務時間を算出してセットする
     calcWorkTime(){
-      //TODO Date型どうしで比較可能にする。そのためには、時間入力(timepicker)で内部的に日付を持たせる必要がある。
-      let _start = dateFns.format(this.updateRecord.startTime, 'HH:mm');
-      let _end   = dateFns.format(this.updateRecord.endTime, 'HH:mm');
-      this.updateRecord.workingTime = dateFns.differenceInSeconds(_end, _start )- 3600;
+      //dateFnsは日付部分を無視した時間差計算ができなかったのでmoment.jsを使う
+      let _start = moment(this.updateRecord.startTime, 'HH:mm');
+      let _end   = moment(this.updateRecord.endTime, 'HH:mm');
+      this.updateRecord.workingTime = _end.diff(_start,'seconds') - 3600;
     },
     //Web APIへのアクセス
     select(){
@@ -87,7 +94,7 @@ const vm = new Vue({
         console.log(error);
       })
     },
-    insert(){
+    executeInsert(){
       var target = this.updateRecord;
       axios.post(API_URI + '/insert', {
         'date'        : target.date, 
@@ -98,11 +105,13 @@ const vm = new Vue({
         console.log(`Insert succeeded in Vue.js : ${response.data}`);
         //再表示
         this.select();
+        this.transPage('list');
       })
     },
-    update(){
+    executeUpdate(){
       var target = this.updateRecord;
       axios.patch(API_URI + '/update', {
+        'id'          : target.id,
         'date'        : target.date, 
         'startTime'   : target.startTime,
         'endTime'     : target.endTime,
@@ -111,7 +120,11 @@ const vm = new Vue({
         console.log(`Update succeeded in Vue.js : ${response.data}`);
         //再表示
         this.select();
+        this.transPage('list');
       })
+    },
+    executeDelete(){
+      //TODO 実装
     },
   },
 });
