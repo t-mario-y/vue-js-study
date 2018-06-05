@@ -1,6 +1,7 @@
 //勤怠時間を携帯webからログ取れるアプリを作る
 //画面切り替えは特にrouterは使わない。
-const API_URI = 'http://localhost:3000/workTimeLog';
+//const API_URI = 'http://localhost:3000/workTimeLog';
+const API_URI = 'https://work-time-log-api.herokuapp.com/workTimeLog';
 
 const vm = new Vue({
   el: '#myApp',
@@ -97,7 +98,8 @@ const vm = new Vue({
     executeInsert(){
       var target = this.updateRecord;
       axios.post(API_URI + '/insert', {
-        'date'        : target.date, 
+        //dateフォーマットを変換しないと日付が前にずれる。Herokuのリージョンがアメリカだから時差かも。
+        'date'        : dateFns.format(target.date, 'YYYY/MM/DD'), 
         'startTime'   : target.startTime,
         'endTime'     : target.endTime,
         'workingTime' : target.workingTime,
