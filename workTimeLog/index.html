@@ -57,10 +57,8 @@
 <span v-if="updateMode === 'insert'">
   <button v-on:click="executeInsert">登録</button>
 </span>
-<span v-else-if="updateMode === 'update'">
-  <button v-on:click="executeUpdate">更新</button>
-</span>
 <span v-else>
+  <button v-on:click="executeUpdate">更新</button>
   <button v-on:click="executeDelete">削除</button>
 </span>
   <button v-on:click="transPage('list')">一覧画面へ</button>

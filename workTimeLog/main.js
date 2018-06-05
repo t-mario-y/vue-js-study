@@ -106,6 +106,8 @@ const vm = new Vue({
         //再表示
         this.select();
         this.transPage('list');
+      }).catch((error) => {
+        console.log(error);
       })
     },
     executeUpdate(){
@@ -121,10 +123,23 @@ const vm = new Vue({
         //再表示
         this.select();
         this.transPage('list');
+      }).catch((error) => {
+        console.log(error);
       })
     },
     executeDelete(){
-      //TODO 実装
+      var target = this.updateRecord;
+      //TODO 削除処理はPOSTリクエストでいいのか?
+      axios.post(API_URI + '/delete', {
+        'id' : target.id,
+      }).then((response) =>{ 
+        console.log(`Delete succeeded in Vue.js : ${response.data}`);
+        //再表示
+        this.select();
+        this.transPage('list');
+      }).catch((error) => {
+        console.log(error);
+      })
     },
   },
 });
