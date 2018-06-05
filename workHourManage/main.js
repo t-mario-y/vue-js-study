@@ -12,10 +12,10 @@ const vm = new Vue({
     workObjList: [], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
       date      : '',
-      startTime : '',
+      startTime : '', //TODO mm:ssにするか、yyyy-mm-dd mm:ssにするか。画面上は単なるtimepickerにしたほうがシンプル。更新のときに(サーバで)なんとかすべきだろうか?
       endTime   : '',
       workingTime  : '',
-    }
+    },
   },
   watch : {
     'updateRecord.startTime' : function(){
