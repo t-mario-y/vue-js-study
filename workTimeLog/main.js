@@ -1,6 +1,6 @@
 //勤怠時間を携帯webからログ取れるアプリを作る
 //画面切り替えは特にrouterは使わない。
-const API_URI = 'http://localhost:3000/samples/airTable/work';
+const API_URI = 'http://localhost:3000/workTimeLog';
 
 const vm = new Vue({
   el: '#myApp',
