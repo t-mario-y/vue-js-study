@@ -4,34 +4,34 @@ const API_URI = 'http://localhost:3000/samples';
 
 const vm = new Vue({
   el: '#myApp',
-  data:{
+  data: {
     recordList: [], //データの格納場所。宣言時は空
     updateRecord: { //作成/更新レコード
-      id        : '',
-      ISBN      : 'ISBN',
-      musician  : 'musician',
+      id: '',
+      ISBN: 'ISBN',
+      musician: 'musician',
       albumTitle: 'album title',
     }
   },
-  created : function () {
+  created: function () {
     this.fetch();
   },
-  methods : {
-    fetch(){
+  methods: {
+    fetch() {
       axios.get(API_URI + '/airTable/fetch')
-      .then((response) => {
-        this.recordList = response.data;
-        console.log(`Fetch succeeded in Vue.js.`);
-      }).catch((error) => {
-        console.log(error);
-      })
+        .then((response) => {
+          this.recordList = response.data;
+          console.log(`Fetch succeeded in Vue.js.`);
+        }).catch((error) => {
+          console.log(error);
+        })
     },
-    create(){
+    create() {
       axios.post(API_URI + '/airTable/create', {
-        'ISBN'      : this.updateRecord.ISBN,
-        'musician'  : this.updateRecord.musician,
+        'ISBN': this.updateRecord.ISBN,
+        'musician': this.updateRecord.musician,
         'albumTitle': this.updateRecord.albumTitle,
-      }).then((response) =>{ //TODO =>はIE11で通りません。
+      }).then((response) => { //TODO =>はIE11で通りません。
         console.log(`Create succeeded in Vue.js : ${response.data}`);
         //再表示
         //本来であれば、予めitemオブジェクトを生成しておいてそれをajaxに投げ、
@@ -39,15 +39,15 @@ const vm = new Vue({
         this.fetch();
       })
     },
-    update(){
+    update() {
       //TODO 選択したレコードのIDをセットして送る必要がある
       var target = this.recordList[0];
       axios.patch(API_URI + '/airTable/update', {
-        'id'        : target.id,
-        'ISBN'      : this.updateRecord.ISBN,
-        'musician'  : this.updateRecord.musician,
+        'id': target.id,
+        'ISBN': this.updateRecord.ISBN,
+        'musician': this.updateRecord.musician,
         'albumTitle': this.updateRecord.albumTitle,
-      }).then((response) =>{
+      }).then((response) => {
         console.log(`Update succeeded in Vue.js : ${response.data}`);
         //再表示
         this.fetch();
