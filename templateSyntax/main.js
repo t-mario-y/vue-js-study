@@ -1,20 +1,20 @@
 const vm = new Vue({
   el: '#myApp',
-  data: {
+  data:{
     message: {
       value: 'data binding message.'
     },
-    list: ['りんご', 'バナナ', 'いちご'],
+    list: ['りんご','バナナ','いちご'],
     radius: 50, //this.radius / vm.radius で制御する
-    classState: {
+    classState : {
       isActive: true, //classの切り替えを this.classState.isActive を通じて制御していることに注目
     },
   },
-  created: function () {
+  created : function () {
 
   },
-  methods: {
-    switchState() {
+  methods : {
+    switchState(){
       this.classState.isActive = !this.classState.isActive;
     }
   },
