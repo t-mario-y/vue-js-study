@@ -4,22 +4,22 @@
 // インスタンスメソッドとして vm.$mount()など
 // https://jp.vuejs.org/v2/api/ で自習する
 const vm = new Vue({
-//  el: "#myApp",
-  data:{
+  //  el: "#myApp",
+  data: {
     vueFriends: [
       {
         first: 'Bobby',
-        last : 'Anderson',
-        age  : 25.
+        last: 'Anderson',
+        age: 25.
       },
       {
         first: 'Mary',
-        last : 'Serra',
-        age  : 23,
+        last: 'Serra',
+        age: 23,
       },
     ],
   },
-  mounted(){
+  mounted() {
     console.log("now Vue Instance is mounted.");
   },
   template: `

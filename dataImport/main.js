@@ -6,10 +6,10 @@ const fetchURI = "https://api.airtable.com/v0/appLuomWcZr2mn0fL/cdData?api_key=[
 
 const vm = new Vue({
   el: "#myApp",
-  data:{
+  data: {
     recordList: [] //データの格納場所。宣言時は空
   },
-  created : function () {
+  created: function () {
     fetch(fetchURI)
       .then(response => response.json())
       .then((data) => {
