@@ -9,7 +9,7 @@ Vue.use(Vuetify)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
-new Vue({
+const vm = new Vue({
   el: '#app',
   components: { App },
   template: '<App/>'
