@@ -4,27 +4,45 @@
       <router-link to="/">一覧</router-link>
       <router-link to="/update">更新</router-link>
     </nav>
-    <router-view /><!-- ここにパスと一致したコンポーネントが埋め込まれる -->
-    <button v-on:click="fuga">button</button>
-    <div>{{store.updateRecord.id}}</div>
-    <div>{{store.updateRecord.name}}</div>
+    <router-view 
+      v-bind:dataList="dataList" 
+      v-bind:updateRecord="updateRecord" 
+      v-bind:hoge="hoge"/>
   </div>
 </template>
 <script>
+import axios from 'axios';
+const API_URI = 'https://work-time-log-api.herokuapp.com/workTimeLog';
 export default {
-  name: 'App',
-  props: ['store'],
-  methods:{
-    fuga(){
-      console.log(this.store.hoge);
+  name: "App",
+  data: function() {
+    return {
+      dataList: [],
+      updateRecord: {
+        id: "12345",
+        name: "柳田格之進"
+      },
+      hoge: "hogehoge"
+    };
+  },
+  methods: {
+    //TODO 各画面から呼び出せない
+    fetch(){
+      axios.get(API_URI + '/airTable/fetch')
+        .then((response) => {
+          this.dataList = response.data;
+          console.log(`Fetch succeeded in Vue.js.`);
+        }).catch((error) => {
+          console.log(error);
+        })
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
