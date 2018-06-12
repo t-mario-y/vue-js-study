@@ -4,14 +4,21 @@
       <router-link to="/">一覧</router-link>
       <router-link to="/update">更新</router-link>
     </nav>
-    <!-- ここにパスと一致したコンポーネントが埋め込まれる -->
-    <router-view />
+    <router-view /><!-- ここにパスと一致したコンポーネントが埋め込まれる -->
+    <button v-on:click="fuga">button</button>
+    <div>{{store.updateRecord.id}}</div>
+    <div>{{store.updateRecord.name}}</div>
   </div>
 </template>
 <script>
 export default {
   name: 'App',
-//  props: ['hoge']
+  props: ['store'],
+  methods:{
+    fuga(){
+      console.log(this.store.hoge);
+    }
+  }
 }
 </script>
 

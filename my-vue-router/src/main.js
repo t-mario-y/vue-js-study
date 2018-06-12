@@ -6,22 +6,26 @@ import router from './router.js'
 
 Vue.config.productionTip = false
 
-//TODO このままでは読めない
 new Vue({
   el: '#app',
   router,
   components: {
     App,
   },
-  template: '<App/>',
+  //[App]コンポーネントに対しdata全てを紐付けるやりかたは良くない。
+  template: `<App v-bind:store="dataStore"/>`, 
   data: {
-    dataList: [],
-    updateRecord: {
-      id: null,
-      name: null
-    },
-    hoge: 'hogehoge',
+    //複数種dataをv-bindしようとすると怒られるので回避
+    dataStore:{
+      dataList: [],
+      updateRecord: {
+        id: '12345',
+        name: '柳田格之進'
+      },
+      hoge: 'hogehoge',
+    }
   },
   methods: {
   },
+
 });
