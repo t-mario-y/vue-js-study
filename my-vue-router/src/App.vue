@@ -10,7 +10,8 @@
 </template>
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+//  props: ['hoge']
 }
 </script>
 
