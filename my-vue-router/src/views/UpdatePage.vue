@@ -1,7 +1,7 @@
 <script>
 export default {
   name: 'UpdatePage',
-  props:['updateRecord','childHoge'],
+  props:['record','childHoge'],
   methods : {
   },
 }
@@ -9,7 +9,7 @@ export default {
 <template>
   <div class="update">
     <h1>更新画面</h1>
-    <div>{{updateRecord}}</div>
+    <div>{{record}}</div>
     <div>{{childHoge}}</div>
   </div>
 </template>

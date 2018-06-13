@@ -11,6 +11,6 @@ export default {
     <h1>一覧ページ</h1>
     <div>{{dataList}}</div>
     <div>{{childHoge}}</div>
-    <button v-on:click="$emit('childFetch')">検索</button>
+    <button v-on:click="$emit('select')">検索</button>
   </div>
 </template>
