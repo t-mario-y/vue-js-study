@@ -10,10 +10,11 @@ Vue.component('friend-comp',{
     }
   },
   methods: {
-     incrementAge(friend){
-       friend.age += 1;
-     },
-     decrementAge(friend){
+    //本当はevents upで処理すべき
+    incrementAge(friend){
+      friend.age += 1;
+    },
+    decrementAge(friend){
       friend.age -= 1;
     }
   },

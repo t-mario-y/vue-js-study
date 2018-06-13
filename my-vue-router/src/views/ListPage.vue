@@ -1,11 +1,8 @@
 <script>
 export default {
   name: 'ListPage',
-  props:['dataList','hoge'],
+  props:['dataList','childHoge'],
   methods : {
-    fuga:function(){
-      console.log("asdf");
-    }
   },
 }
 </script>
@@ -13,8 +10,7 @@ export default {
   <div class="listPage">
     <h1>一覧ページ</h1>
     <div>{{dataList}}</div>
-    <div>{{hoge}}</div>
-    <!-- TODO events upが実装できない-->
-    <button v-on:click="fuga">fetch</button>
+    <div>{{childHoge}}</div>
+    <button v-on:click="$emit('childFetch')">検索</button>
   </div>
 </template>

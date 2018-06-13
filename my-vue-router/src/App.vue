@@ -7,7 +7,8 @@
     <router-view 
       v-bind:dataList="dataList" 
       v-bind:updateRecord="updateRecord" 
-      v-bind:hoge="hoge"/>
+      v-bind:childHoge="hoge"
+      v-on:childFetch="fetch" />
   </div>
 </template>
 <script>
@@ -22,13 +23,12 @@ export default {
         id: "12345",
         name: "柳田格之進"
       },
-      hoge: "hogehoge"
+      hoge: "hogehoge",
     };
   },
   methods: {
-    //TODO 各画面から呼び出せない
     fetch(){
-      axios.get(API_URI + '/airTable/fetch')
+      axios.get(API_URI + '/select')
         .then((response) => {
           this.dataList = response.data;
           console.log(`Fetch succeeded in Vue.js.`);
