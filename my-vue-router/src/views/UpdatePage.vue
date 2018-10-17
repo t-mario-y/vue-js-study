@@ -8,7 +8,8 @@ export default {
 </script>
 <template>
   <div class="update">
-    <h1>更新画面</h1>
+    <h1>更新ページ</h1>
+    <!--TODO さすがに見た目が悪い-->
     <div>{{record}}</div>
     <div>{{childHoge}}</div>
   </div>
