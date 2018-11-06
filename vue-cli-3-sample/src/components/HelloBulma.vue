@@ -6,11 +6,11 @@
 </template>
 <script>
 export default {
-  name:'HelloBulma',
+  name: "HelloBulma",
   props: {
     msg: String
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 @import "./node_modules/bulma/bulma.sass";
